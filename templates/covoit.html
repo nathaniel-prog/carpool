@@ -1,0 +1,40 @@
+<html>
+
+
+<head>
+
+
+</head>
+
+
+
+<body>
+
+<h1>quel voiture avez vous ?</h1>
+<div>
+
+
+<form method="POST" >
+    <table>
+        {{ form.as_p }}
+    </table>
+    {% csrf_token %}
+    <button type="submit"> send</button>
+</form>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>

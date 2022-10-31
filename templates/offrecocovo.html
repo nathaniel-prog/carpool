@@ -1,0 +1,21 @@
+
+<h1>quelque renseignement sur le trajet ?</h1>
+<div>
+
+
+<form method="POST" >
+    <table>
+        {{ form.as_p }}
+    </table>
+    {% csrf_token %}
+    <button type="submit"> send</button>
+</form>
+</div>
+
+
+{% for titre in titres %}
+<ul>
+
+    <li>{{titre.depart}} </li>
+</ul>
+{% endfor %}

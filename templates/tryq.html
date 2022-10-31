@@ -1,0 +1,10 @@
+
+
+{% for match in matches %}
+<div class="name">
+    <ul>
+    <li> <a href="{% url 'lis_view' match.letter %} "> {{ letter }} </a> {{match}}</li>
+</ul>
+</div>
+
+{% endfor %}

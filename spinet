@@ -1,0 +1,7 @@
+
+
+def test(request):
+    if request.user.is_anonymous== False:
+        return HttpResponse('you are logged in')
+    else:
+        return HttpResponse('you are in anonymous ')

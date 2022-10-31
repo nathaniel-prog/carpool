@@ -1,0 +1,21 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+</head>
+<body>
+
+
+{% for info in object_list %}
+<div class="name">
+    <ul>
+    <li> <a href="{% url 'chauffeur' info.pk %} "> {{ info.name }} </a> </li>
+</ul>
+</div>
+
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>home</title>
+</head>
+<body>
+
+
+{% block content %}
+
+
+
+<div class="presentation">
+<h2> Enchanté {{user.username}}  <img class="profile-pic" src="{{request.user.userprofile.avatar.url}}" width="50px"></h2>
+
+
+</div>
+
+
+
+<h3>offre de covoiturage</h3>
+<div>
+  <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ville</th>
+      <th scope="col">depart</th>
+      <th scope="col">arrive </th>
+      <th scope="col">heure de depart</th>
+       <th scope="col">place disponible</th>
+      <th scope="col">contact </th>
+      <th scope="col">prix demandé (optionnel)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">netanya</th>
+      <td>tahana mercazit</td>
+      <td>tahana ashdod</td>
+      <td>13 h</td>
+      <td>1</td>
+      <td>055 55 555 555</td>
+      <td>35 nis</td>
+    </tr>
+    <tr>
+      <th scope="row">Netanya</th>
+      <td>jabotinski 22</td>
+      <td>Rotshilld 55</td>
+      <td>20h</td>
+      <td>2</td>
+      <td>050 55 550 99</td>
+      <td>0 nis</td>
+    </tr>
+    <tr>
+      <th scope="row">Haifa</th>
+      <td>Hamerkaz 34</td>
+      <td>rakevet tel aviv </td>
+      <td>5h </td>
+      <td>3</td>
+      <td>054 3033 3342</td>
+      <td>50 nis</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3> demande de covoiturage </h3>
+<div>
+  <table class="table table-red">
+  <thead>
+    <tr>
+      <th scope="col">ville</th>
+      <th scope="col">depart</th>
+      <th scope="col">arrive </th>
+      <th scope="col">heure de depart</th>
+       <th scope="col">Nombres de passagers</th>
+      <th scope="col">contact </th>
+    </tr>
+  </thead>
+  <tbody>
+   <tr>
+      <th scope="row">{{town}}</th>
+      <td>tahana mercazit</td>
+      <td>tahana ashdod</td>
+      <td>13 h</td>
+      <td>2</td>
+      <td>050 500 00 10</td>
+    </tr>
+    <tr>
+      <th scope="row">netanya</th>
+      <td>tahana mercazit</td>
+      <td>tahana ashdod</td>
+      <td>13 h</td>
+      <td>2</td>
+      <td>050 500 00 10</td>
+    </tr>
+    <tr>
+      <th scope="row">Netanya</th>
+      <td>jabotinski 22</td>
+      <td>Rotshilld 55</td>
+      <td>20h</td>
+      <td>2</td>
+      <td>050 55 550 99</td>
+    </tr>
+    <tr>
+      <th scope="row">Ranana</th>
+      <td>kazzer 99</td>
+      <td>rakevet tel aviv </td>
+      <td>18h</td>
+      <td>2</td>
+      <td>054 3033 3342</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+{% endblock %}
+</body>
+</html>

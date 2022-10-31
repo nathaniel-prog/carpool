@@ -1,0 +1,33 @@
+{% include 'base.html' %}
+
+
+<body>
+
+
+
+<div>
+{% block content %}
+
+
+<br>
+<br>
+<H1>Renseignements trajet a faire </H1>
+<form method="POST" class="ftrajet" >
+    <table>
+        {{ form.as_p }}
+    </table>
+    {% csrf_token %}
+    <button type="submit"> send </button>
+</form>
+
+
+
+</div>
+
+
+
+
+{% endblock content %}
+
+
+</body>

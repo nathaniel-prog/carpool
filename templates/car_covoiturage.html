@@ -1,0 +1,44 @@
+<html>
+
+<head>
+
+
+</head>
+<body>
+
+<h1>quel voiture avez vous ?</h1>
+
+upload photo voiture
+
+<br>
+<br>
+
+
+<form action="/car_covoiturage">
+	<label> marque</label>
+	<input type="text">
+	<label>modele</label>
+	<input type="text" value="modele" id="modele">
+	<label for= 'fichier' >joindre fichier </label>
+	<input type='file' name='file' id='fichier' required >
+	{% csrf_token %}
+	<input type="submit">
+
+</form>
+
+
+
+
+
+
+<br>
+
+
+<button><a href="{% url 'where' %}"> suivant</a></button>
+
+</body>
+
+
+
+
+</html>

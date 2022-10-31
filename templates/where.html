@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/where" method="post">
+    <label>DEPART DE  </label>
+    <input type="text" name="q">
+    <label>arrivé   </label>
+
+    <input type="text" name="q1">
+
+    <label id="dates">Vos dates </label>
+
+    <div>
+    	<label>fixer vos dates</label>
+        <input type="datetime-local" name="q2" required="">
+
+
+
+
+
+    </div>
+    {% csrf_token %}
+
+<button type="submit"  >send </button>
+
+
+
+
+</form>
+
+
+
+<p>{{archive}}</p>
+
+{% if archives %}
+{% for info in archive %}
+{{info.date}}
+<p> you have {{info.author}}: num phone {{info.num_phone}}  who looking for {{info.depart}} to {{info.arrive}}</p>
+
+{% endfor %}
+
+<div>
+{% elif messages %}
+<ul class="message">
+   {% for message in messages %}
+	   <li style="color:blue">{{ message }}</li>
+   {% endfor %}
+</ul>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+<div>
+{% block content %}
+
+
+<br>
+<br>
+
+<form method="POST" >
+    <table>
+        {{ form.as_p }}
+    </table>
+    {% csrf_token %}
+    <button type="submit"> send </button>
+</form>
+
+<div>
+    <h3>{{titres}}</h3>
+    <h3>{{sform}}</h3>
+</div>
+
+
+</div>
+
+
+
+
+
+<div>
+{% if messages %}
+<ul class="message">
+   {% for message in messages %}
+	   <li style="color:blue">{{ message }}</li>
+   {% endfor %}
+</ul>
+{% endif %}
+
+
+</div><br>
+
+
+{% if titre %}
+{% for titre in titres %}
+
+<p>{{ titre.depart}}</p>
+
+{% endfor %}
+
+
+{% endif %}
+
+
+
+
+<h3> Back to <a href="{% url 'home' %}"> homepage</a> </h3>
+<h3> Back to <a href="{% url 'logout' %}"> logout</a> </h3>
+
+{% endblock %}
+
+</body>
+</html>

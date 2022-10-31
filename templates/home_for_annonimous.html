@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+
+
+
+{% block content %}
+
+ <h2> demande de covoiturage du  </h2> <p id="demo">here</p>
+
+
+
+<script>
+const d = new Date();
+document.getElementById("demo").innerHTML = d;
+
+</script>
+
+<H3>{{findlocal}}</H3>
+
+{% for post in posts %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">depart</th>
+      <th scope="col">destination</th>
+      <th scope="col">nbr of passagers</th>
+        <th scope="col">horaire prevu</th>
+    </tr>
+
+  </thead>
+
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{{post.depart}}</td>
+      <td>{{post.arrive}}</td>
+      <td>{{post.passagers}}</td>
+        <td>{{post.date}}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+{% endfor %}
+
+<h2>offre de covoiturage </h2>
+
+{% for offre in offres %}
+<ul>
+    <li>{{offre.depart}} at {{offre.arrive}} : {{post.passagers}} passagé(s)</li>
+{% endfor %}
+
+</ul>
+
+{% endblock %}
+<script>
+const di = new Date();
+document.getElementById("demoo").innerHTML = di;
+
+</script>
+
+</body>
+</html>
