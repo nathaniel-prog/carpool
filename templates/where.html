@@ -44,6 +44,15 @@
 
 {% endfor %}
 
+<br>{% if offres %}
+<H2> Offre(s) de covoiturage </H2>
+{% for offre in offres %}
+<ul>
+    <li>{{offre.author}} {{offre.depart}} {{offre.arrive}}</li>
+</ul>
+{% endfor %}
+{% andif %}
+
 <div>
 {% elif messages %}
 <ul class="message">

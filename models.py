@@ -9,7 +9,8 @@ from twilio.twiml import (
     TwiML,
     format_language,
 )
-from django.core import serializers
+
+from phonenumber_field.modelfields import PhoneNumberField
 
 # assuming obj is a model instance
 
@@ -28,7 +29,7 @@ import phonenumber_field
 from django.conf import settings
 from django.core import validators
 from phonenumbers.util import unicod
-from phonenumber_field.modelfields import PhoneNumberField
+
 from django.utils import timezone
 
 moi = User.objects.get(id=2)
@@ -64,7 +65,34 @@ class Offre(models.Model):
 
 
     def __str__(self):
-        return f" votre trajet est prevu ce jour ci {self.date_depart.strftime('%d-%m-%Y')}"
+        return f" votre trajet from {self.depart} to {self.arrive} est prevu ce jour ci {self.date_depart.strftime('%d-%m-%Y')} "
+
+    def get_absolute_url(self):
+        return reverse('home')
+
+
+    def save(self , *args , **kwargs):
+
+        account_sid = key_account_sid
+        auth_token = key_auth_token
+
+
+        if self.author and self.num_phone:
+
+            client = Client(account_sid, auth_token)
+
+            message = client.messages.create(
+                body=f' salut  {self.depart} {self.arrive}  {self.__str__()}',
+
+                from_='+12543312099',
+                to='+972505552709',
+
+            )
+        print(message.sid)
+
+        return super().save(*args, **kwargs)
+
+
 
 
 
@@ -85,11 +113,17 @@ class Post(models.Model):
 
 
     def __str__(self):
-        return f" you are looking for a carpool to {self.arrive} at {self.date_depart.strftime('%d-%m-%Y')}"
+        return f" {self.author} are looking for a carpool from  {self.depart} to {self.arrive} "
 
 
     def get_absolute_url(self):
         return reverse('user_post')
+
+
+
+
+
+
 
 
 

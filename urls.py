@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import DeletePostView, ChauffeurListView, \
     ChauffeurDetail, PostListView, DetailPostView, CreatePostView, CreateOfferView,\
-    PostUpdateView, OfferListView ,UserDetail
+    PostUpdateView, OfferListView ,OffreDetail
 
 urlpatterns = [
 
@@ -29,8 +29,10 @@ urlpatterns = [
     path('offre/new', CreateOfferView.as_view() , name='create_offer'),
     path('sms', views.envoi_sms, name='sendsms'),
     path('voir', views.OffreCov, name='voir'),
-    path('user_id/<int:pk> ',UserDetail.as_view(), name='user_id'),
-    path('list/(?P<letter>[a-z])$',views.st_view(), name="lis_view")
+    path('offre_id/<int:pk> ',OffreDetail.as_view(), name='offre_id'),
+    path('ousa', views.whereis , name='where'),
+
+
 
 
 

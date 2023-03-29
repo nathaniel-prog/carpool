@@ -11,7 +11,8 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import login as auth_login , authenticate
 from django.contrib import messages
 from michtamech.models import UserProfile
-
+import calendar
+from calendar import HTMLCalendar
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin ,UserPassesTestMixin
 from django.views.generic import ListView, DetailView , CreateView,UpdateView , DeleteView
@@ -37,7 +38,7 @@ def logout_view(request):
 
 def home(request):
     post_= Post.objects.all()
-    offres = Offre.objects.all()
+    lastone = Offre.objects.last()
 
 
 
@@ -48,9 +49,9 @@ def home(request):
 
 
     if request.user.is_anonymous== True:
-        return render(request,'home_for_annonimous.html', {'posts': post_ , 'profiles': profiles , 'offres':offres , findlocal:'findlocal' })
+        return render(request,'home_for_annonimous.html', {'posts': post_ , 'profiles': profiles , 'lastone':lastone , findlocal:'findlocal' })
     else:
-        return render(request, 'home.html', { 'findlocal':findlocal,'posts': post_ , 'profiles': profiles })
+        return render(request, 'home.html', { 'findlocal':findlocal,'posts': post_ , 'profiles': profiles, 'lastone':lastone })
 
 
 
@@ -72,9 +73,6 @@ class  DetailPostView(LoginRequiredMixin, DetailView):
 
 
 
-def st_view(request, letter=None):
-  matches = Post.objects.all().order_by("date").filter(Q(depart__startswith=letter.upper())and Q(arrive__startswith=letter.upper()))
-  return render(request, "tryq.html", {"matches": matches})
 
 
 
@@ -93,7 +91,7 @@ class DeletePostView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Post
 
-    fields = ['depart', 'arrive', 'date_depart', 'passagers']
+    fields = ['depart', 'arrive',  'passagers']
 
 
 
@@ -112,28 +110,16 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 
 
 
-def where(request):
-    if request.method == 'POST':
-        d_query = request.POST["q"]
-        a_query=request.POST["q1"]
-        t_query=request.POST["q2"]
-        _depart= Post.objects.filter(depart=a_query)
-        _departs=Post.objects.filter(depart=a_query).count()
-        archives = Post.objects.filter(depart=d_query).count()
-        archive = Post.objects.filter(depart=d_query)
-        if archives>=2 and archive:
-            archive
-        else:
-            messages.error(request, 'no one go there today')
-        return render(request,'where.html', {'archive': archive ,  'archives':archives,
-                                             '_depart':_depart, '_departs': _departs , 'tquery':t_query})
+def whereis(request):
+    results= Post.object.filter(arrive='bengourion')
+    return render(request, 'ousa.html', {'results':results})
 
 
 
 
-    else :
-        if request.method== 'GET':
-            return render(request,'where.html', )
+
+
+
 
 
 
@@ -170,18 +156,24 @@ class OfferListView(LoginRequiredMixin, ListView):
 
 
 
-class UserDetail(DetailView):
-    model= UserProfile
+class OffreDetail(DetailView):
+    model= Offre
     template_name = 'user_info.html'
 
     def get_context_data(self, *args,**kwargs):
-        context=super(UserDetail, self).get_context_data()
-        stuff = get_object_or_404(User, id=self.kwargs['pk'])
+        context=super(OffreDetail, self).get_context_data()
+        stuff = get_object_or_404(Offre, id=self.kwargs['pk'])
         choosen = stuff.save()
         context['choosen']= choosen
 
 
         return context
+
+    def test_func(self):
+        post=self.get_object()
+        if self.request.user==post.author:
+            return True
+        return False
 
 
 
@@ -243,7 +235,7 @@ def infocovoiturage(request):
 
 class CreateOfferView(LoginRequiredMixin,CreateView):
     model= Offre
-    fields= ['depart', 'arrive','date_depart']
+    fields= ['depart', 'arrive','date_depart', 'passagers']
 
     template_name = 'offrecov.html'
 
@@ -274,12 +266,39 @@ class CreatePostView(LoginRequiredMixin,CreateView):
 
 def envoi_sms(request):
     if request.method == 'POST':
-        form = ChauffeurCov(request.POST)
+        form = OffreCov(request.POST)
         if form.is_valid():
             return render(request, 'sms.html', {'form': form})
     else:
-        form= ChauffeurCov()
+        form= OffreCov()
 
         return render(request ,'sms.html',{'form':form} )
+
+
+def where(request):
+    if request.method == 'POST':
+        query = request.POST["q1"]
+        query2 = request.POST.get("q2")
+        archives = Post.objects.filter(date=query2 ,arrive=query).count()>0
+        archive = Post.objects.filter(arrive=query)
+        offres=Offre.objects.filter(date=query2 ,arrive=query).count()>0
+        if archives or offres:
+            archive,offres
+        else:
+            messages.error(request, 'no one go there today')
+        return render(request,'where.html', {'archive': archive ,  'archives':archives ,'offres':offres })
+
+
+
+
+    else :
+        if request.method== 'GET':
+            return render(request,'where.html', )
+
+
+
+
+
+
 
 
